@@ -8,10 +8,18 @@
 import SwiftUI
 
 @main
-struct Hackathon_Clothes_TradingApp: App {
+struct Hackathon_Clothes_Trading: App {
+    @StateObject var userAuthentication = UserAuthentication()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if userAuthentication.isAuthenticated {
+                HomeView()
+                    .environmentObject(userAuthentication)
+            } else {
+                AuthenticationView()
+                    .environmentObject(userAuthentication)
+            }
         }
     }
 }
